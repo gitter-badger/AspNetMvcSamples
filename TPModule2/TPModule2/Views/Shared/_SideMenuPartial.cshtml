@@ -1,0 +1,11 @@
+﻿@using TPModule2.Helpers
+
+@Html.ToUlLi(new List<MvcHtmlString>
+    {
+        Html.ActionLink("Accueil", "Index", "Home"),
+        Html.ActionLink("Catégories", "Index", "Categorie"),
+        Html.ActionLink("Produits", "Index", "Produit"),
+        Html.ActionLink("Rechercher", "Form", "Home"),
+        Html.ActionLink("À propos de", "About", "Home"),
+        Html.ActionLink("Contact", "Contact", "Home")
+    }, null, "float-left")

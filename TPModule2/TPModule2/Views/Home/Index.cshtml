@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "Page d'accueil";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+                Pour en savoir plus sur ASP.NET MVC, consultez la page
+                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+                La page inclut <mark>des vidéos, des didacticiels et des exemples</mark> pour vous aider à tirer parti d’ASP.NET MVC.
+                Si vous avez des questions sur ASP.NET MVC, consultez
+                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">nos forums</a>.
+            </p>
+        </div>
+    </section>
+}
+
+@Html.Partial("_SideMenuPartial")
+<br />
+
+<h3>Nous suggérons ce qui suit :</h3>
+<ol class="round">
+    <li class="one">
+        <h5>Prise en main</h5>
+        ASP.NET MVC permet de créer des sites Web dynamiques à l’aide de modèles. Le programme
+        permet de séparer nettement les différents aspects et offre un contrôle total des balises
+        pour simplifier et améliorer le développement. ASP.NET MVC inclut de nombreuses fonctionnalités qui accélèrent
+        le développement TDD et permettent de créer des applications sophistiquées qui utilisent
+        les derniers standards web.
+        <a href="http://go.microsoft.com/fwlink/?LinkId=245151">En savoir plus…</a>
+    </li>
+
+    <li class="two">
+        <h5>Ajouter des packages NuGet et dynamiser votre codage</h5>
+        NuGet simplifie l’installation et la mise à jour des bibliothèques et outils gratuits.
+        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">En savoir plus…</a>
+    </li>
+
+    <li class="three">
+        <h5>Rechercher un hébergement Web</h5>
+        Recherchez un fournisseur d’hébergement Web proposant le meilleur rapport qualité/prix
+            pour vos applications.
+            <a href="http://go.microsoft.com/fwlink/?LinkId=245157">En savoir plus…</a>
+    </li>
+</ol>
+
+<p>
+    Utilisateur :
+    <input type="text" name="userName" id="userName" />
+    Role :
+    <input type="text" name="roleName" id="roleName" />
+</p>
+<p>
+    <a href="#" id="addRole">Ajouter Role</a>
+</p>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // ajouter des noeuds
+            var conteneur = $('ol.round');
+            var newLi = $('<li class="four"><h5>Hello</h5>Hello</li>');
+            conteneur.append(newLi);
+
+            var newLi2 = $('<li/>');
+            newLi2.text("Hello 2");
+            newLi2.addClass('five');
+            conteneur.after(newLi2);
+
+            // evenements globaux pour ajax
+            
+            // à chaque lancement de requête
+            $(document).ajaxStart(function () {
+                $('#ajaxLoader').show(); // affiche le bloc indiqué (exemple : roue qui tourne)
+            });
+            // à chaque fin de requête
+            $(document).ajaxComplete();
+            // à chaque retour en erreur
+            $(document).ajaxError(); // gestion globale de l'erreur
+
+            // Appel AJAX en POST
+        $('#addRole').click(function () {
+            var userName = $('#userName').val();
+            var roleName = $('#roleName').val();
+            $.post("@Url.Action("AddRoleToUser", "Account")",
+                {userName : userName, roleName : roleName},
+
+                    function(data) {
+                        alert('role ajoute:'+data);
+                    }).error(function() { alert('erreur appel')}); // gestion fine de l'erreur
+        });
+        });
+    </script>
+}

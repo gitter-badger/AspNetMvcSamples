@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ECommerceAppDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ECommerceAppDbModelStoreContainer">
+          <EntitySet Name="Categorie" EntityType="ECommerceAppDbModel.Store.Categorie" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Commande" EntityType="ECommerceAppDbModel.Store.Commande" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Produit" EntityType="ECommerceAppDbModel.Store.Produit" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Commande_Vers_Produit" Association="ECommerceAppDbModel.Store.FK_Commande_Vers_Produit">
+            <End Role="Produit" EntitySet="Produit" />
+            <End Role="Commande" EntitySet="Commande" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produit_Vers_Categorie" Association="ECommerceAppDbModel.Store.FK_Produit_Vers_Categorie">
+            <End Role="Categorie" EntitySet="Categorie" />
+            <End Role="Produit" EntitySet="Produit" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Categorie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Commande">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduit" Type="int" Nullable="false" />
+          <Property Name="Total" Type="decimal" Nullable="false" />
+          <Property Name="IdUtilisateur" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Prix" Type="decimal" Nullable="false" />
+          <Property Name="IdCategorie" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Commande_Vers_Produit">
+          <End Role="Produit" Type="ECommerceAppDbModel.Store.Produit" Multiplicity="1" />
+          <End Role="Commande" Type="ECommerceAppDbModel.Store.Commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commande">
+              <PropertyRef Name="IdProduit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produit_Vers_Categorie">
+          <End Role="Categorie" Type="ECommerceAppDbModel.Store.Categorie" Multiplicity="1" />
+          <End Role="Produit" Type="ECommerceAppDbModel.Store.Produit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produit">
+              <PropertyRef Name="IdCategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ECommerceAppDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ECommerceAppDbEntities1" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="ECommerceAppDbModel.Categorie" />
+          <EntitySet Name="Commandes" EntityType="ECommerceAppDbModel.Commande" />
+          <EntitySet Name="Produits" EntityType="ECommerceAppDbModel.Produit" />
+          <AssociationSet Name="FK_Produit_Vers_Categorie" Association="ECommerceAppDbModel.FK_Produit_Vers_Categorie">
+            <End Role="Categorie" EntitySet="Categories" />
+            <End Role="Produit" EntitySet="Produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commande_Vers_Produit" Association="ECommerceAppDbModel.FK_Commande_Vers_Produit">
+            <End Role="Produit" EntitySet="Produits" />
+            <End Role="Commande" EntitySet="Commandes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Categorie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Produits" Relationship="ECommerceAppDbModel.FK_Produit_Vers_Categorie" FromRole="Categorie" ToRole="Produit" />
+        </EntityType>
+        <EntityType Name="Commande">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduit" Type="Int32" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="IdUtilisateur" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produit" Relationship="ECommerceAppDbModel.FK_Commande_Vers_Produit" FromRole="Commande" ToRole="Produit" />
+        </EntityType>
+        <EntityType Name="Produit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Prix" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="IdCategorie" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categorie" Relationship="ECommerceAppDbModel.FK_Produit_Vers_Categorie" FromRole="Produit" ToRole="Categorie" />
+          <NavigationProperty Name="Commandes" Relationship="ECommerceAppDbModel.FK_Commande_Vers_Produit" FromRole="Produit" ToRole="Commande" />
+        </EntityType>
+        <Association Name="FK_Produit_Vers_Categorie">
+          <End Role="Categorie" Type="ECommerceAppDbModel.Categorie" Multiplicity="1" />
+          <End Role="Produit" Type="ECommerceAppDbModel.Produit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produit">
+              <PropertyRef Name="IdCategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Commande_Vers_Produit">
+          <End Role="Produit" Type="ECommerceAppDbModel.Produit" Multiplicity="1" />
+          <End Role="Commande" Type="ECommerceAppDbModel.Commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commande">
+              <PropertyRef Name="IdProduit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ECommerceAppDbModelStoreContainer" CdmEntityContainer="ECommerceAppDbEntities1">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ECommerceAppDbModel.Categorie">
+              <MappingFragment StoreEntitySet="Categorie">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commandes">
+            <EntityTypeMapping TypeName="ECommerceAppDbModel.Commande">
+              <MappingFragment StoreEntitySet="Commande">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdProduit" ColumnName="IdProduit" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="IdUtilisateur" ColumnName="IdUtilisateur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produits">
+            <EntityTypeMapping TypeName="ECommerceAppDbModel.Produit">
+              <MappingFragment StoreEntitySet="Produit">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Prix" ColumnName="Prix" />
+                <ScalarProperty Name="IdCategorie" ColumnName="IdCategorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

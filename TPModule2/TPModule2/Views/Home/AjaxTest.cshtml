@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "AjaxTest";
+}
+
+<h2>AjaxTest</h2>
+
+@using (Ajax.BeginForm("AjaxSearch", new AjaxOptions 
+{ 
+    InsertionMode = InsertionMode.Replace, 
+    UpdateTargetId = "resultats",
+    LoadingElementId = "loaderAjax",
+    OnFailure = "searchError(xhr, status, error)"
+}))
+{
+    <input type="text" name="q" />
+    <input type="submit" value="search" />
+}
+
+<div id="loaderAjax" style="display: none">Veuillez attendre...</div>
+
+<div id="resultats"></div>
+
+@section scripts {
+    <script src="~/scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"> </script>
+
+    <script type="text/javascript">
+        function searchError(xhr, status, error) {
+            alert(error+" - "+status);
+        }
+    </script>
+}

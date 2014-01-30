@@ -1,0 +1,31 @@
+﻿@using TPModule2.Helpers;
+
+@{
+    ViewBag.Title = "Form";
+}
+
+
+<h2>Form</h2>
+
+@Html.Partial("_SideMenuPartial")
+<br />
+
+@using (Html.BeginForm("Result", "Home", FormMethod.Get))
+{
+    @Html.Label("id", "Identifiant")
+    @Html.TextBox("id")
+    
+    @Html.Label("name", "Nom")
+    @Html.TextBox("name")
+
+    <br />
+    
+    @Html.DropDownList("type", (SelectList)ViewBag.SelectListType)
+    
+    <br />
+    
+    @Html.ToUlLi((IEnumerable<string>)ViewBag.List, null)
+    
+    <br />
+    <input type="submit" value="Submit" />
+}
