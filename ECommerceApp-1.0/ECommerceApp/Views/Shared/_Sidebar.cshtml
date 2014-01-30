@@ -1,0 +1,20 @@
+﻿@*@model List<ECommerceApp.Models.Categorie>*@
+
+<!-- start sidebar -->
+<ul class="breadcrumb">
+    <li>Catégories</li>
+</ul>
+<div class="span3 product_list">
+    @*<ul class="nav">*@
+       @* @foreach (var categorie in @Model)
+        {
+            <li>@Html.ActionLink(categorie.Nom, "Details", "Categorie", new {id = categorie.Id})</li>
+        }*@
+        @*<li><a href="#">Catégorie 1 (4)</a></li>
+        <li><a href="#">Catégorie 2 (3)</a></li>
+        <li><a href="#">Catégorie 3 (2)</a></li>
+        <li><a href="#">Catégorie 4 (5)</a></li>      *@ 
+    @*</ul>*@
+    @Html.Action("GetCategoriesList", "Home")
+</div>
+<!-- end sidebar -->

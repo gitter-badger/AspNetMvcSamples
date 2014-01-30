@@ -1,0 +1,46 @@
+﻿@model ECommerceApp.Models.Produit
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Produit</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nom)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nom)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Prix)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Prix)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Categorie.Nom)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Categorie.Nom)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input class="btn btn-danger" type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index", null , new { @class = "btn btn-info" })
+    </p>
+}

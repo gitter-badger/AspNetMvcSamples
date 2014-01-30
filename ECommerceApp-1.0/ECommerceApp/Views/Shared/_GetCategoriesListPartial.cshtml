@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ECommerceApp.Models.CategoryInfo>
+@*IEnumerable<Tuple<string, int, int>>*@
+@*//List<ECommerceApp.Models.Categorie>*@
+
+<ul class="nav">
+
+    <li>@Html.ActionLink("Toutes les catégories", "Index", "Produit")</li>
+
+    @foreach (var categorie in @Model)
+    {
+        <li>@Html.ActionLink(string.Format("{0} ({1})", categorie.Nom, categorie.NombreDeProduits), "Index", "Produit", new { id = categorie.Id }, null)</li>
+    }
+</ul>

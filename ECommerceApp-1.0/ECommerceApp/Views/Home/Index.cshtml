@@ -1,0 +1,25 @@
+﻿@model List<ECommerceApp.Models.Categorie>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h4>Titre de la page</h4>
+
+
+Ceci est la page d'accueil par défaut (Home/Index).<br />
+Il faut la transformer pour afficher ici la liste des produits populaires.
+
+    <h3>Catégories</h3>
+<div class="span3 product_list">
+    <ul>
+        @foreach (var categorie in @Model)
+        {
+            <li>@Html.ActionLink(categorie.Nom, "Details", "Categorie", new { id = categorie.Id }, null)</li>
+        }
+        @* <li><a href="#">Catégorie 1 (4)</a></li>
+        <li><a href="#">Catégorie 2 (3)</a></li>
+        <li><a href="#">Catégorie 3 (2)</a></li>
+        <li><a href="#">Catégorie 4 (5)</a></li>       *@
+    </ul>
+</div>

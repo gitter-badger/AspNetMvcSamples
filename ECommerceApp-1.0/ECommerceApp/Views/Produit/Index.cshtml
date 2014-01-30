@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ECommerceApp.Models.Produit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des produits @ViewBag.CategoryName</h2>
+
+<table class="table table-stripped">
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <strong>@Html.DisplayFor(modelItem => item.Nom)</strong>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prix)
+        </td>
+
+        @if(string.IsNullOrEmpty(ViewBag.CategoryName))
+        {
+        <td>
+            @Html.ActionLink(item.Categorie.Nom, "Index", new { id = item.IdCategorie })
+        </td>
+        }
+    </tr>
+}
+
+</table>

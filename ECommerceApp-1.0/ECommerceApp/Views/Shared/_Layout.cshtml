@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- start header -->
+            <div class="span4 logo">
+                <a href="@Url.Action("Index", "Produit")">
+                    <h1>DocStore</h1>
+                </a>
+            </div>
+            <div class="span8">
+                <div class="row">
+                    <div class="links pull-right">
+                        <a href="@Url.Action("Index", "Home")">Accueil</a> |						
+						<a href="@Url.Action("About", "Home")">A propos</a> |
+						<a href="@Url.Action("Contact", "Home")">Contact</a> |                        
+                        @Html.Partial("_LoginPartial")
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end header -->
+
+        <div class="row">
+            <!-- start nav -->
+            <div class="span12">
+                @Html.Partial("_MenuBar")
+            </div>
+        </div>
+        <!-- end nav -->
+        <div class="row">
+            <div class="span3">
+                @Html.Partial("_Sidebar")
+            </div>
+
+            <div class="span9">
+                @RenderBody()
+            </div>
+        </div>
+        <footer>
+            <hr />
+            <div class="row well no_margin_left">
+
+                <div class="span3">
+                    <h4>Informations</h4>
+                    <ul>
+                        <li><a href="#">Notre société</a></li>
+                        <li><a href="#">Politique de vie privée </a></li>
+                        <li><a href="#">Conditions de ventes</a></li>
+                    </ul>
+                </div>
+                <div class="span3">
+                    <h4>Service client</h4>
+                    <ul>
+                        <li><a href="@Url.Action("Contact", "Home")">Nous contacter</a></li>
+                        <li><a href="#">Annulations</a></li>
+                        <li><a href="#">Plan du site</a></li>
+                    </ul>
+                </div>
+                <div class="span3">
+                    <h4>Extras</h4>
+                    <ul>
+                        <li><a href="#">Lien 1</a></li>
+                        <li><a href="#">Lien 2</a></li>
+                        <li><a href="#">Lien 3</a></li>
+                    </ul>
+                </div>
+                <div class="span2">
+                    <h4>Mon compte</h4>
+                    <ul>
+                        <li><a href="#">Mon compte</a></li>
+                        <li><a href="#">Mes commandes</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </footer>
+
+    </div>
+    <!-- /container -->   
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
